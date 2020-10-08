@@ -43,7 +43,12 @@ int main() {
 
 			if(srtncmp("q", buffer, 1) == 0) {
 				break;
-			} else {
+			} 
+			else if(strncmp("persist", buffer, 7) == 0) {
+ 	 			recv(client_socket, response, sizeof(response), 0);
+  				printf("%s", response);
+			}
+			else {
 				recv(client_socket, response, sizeof(response), MSG_WAITALL);
 				printf("%s", response);
 			}
